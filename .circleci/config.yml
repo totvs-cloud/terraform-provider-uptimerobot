@@ -24,12 +24,12 @@ jobs:
       - run:
           name: Build
           command: |
-            go build -v
+            go build -v -o build/terraform-provider-uptimerobot
       - run:
           name: Run tests
           command: |
             go test
 
       - store_artifacts:
-          path: "/go/bin/terraform-provider-uptimerobot"
+          path: build/terraform-provider-uptimerobot
           destination: terraform-provider-uptimerobot
