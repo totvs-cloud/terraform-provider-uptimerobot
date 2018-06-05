@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  test: &test
+    build: .
+    command: go test -v ..
+    volumes:
+      - .:/go/src/github.com/louy/terraform-provider-uptimerobot
+  publish:
+    <<: *test
+    command: make
+    environment:
+      - NEXUS_URL=''
+      - NEXUS_USERNAME=''
+      - NEXUS_PASSWORD=''
