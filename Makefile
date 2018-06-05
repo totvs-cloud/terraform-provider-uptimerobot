@@ -1,4 +1,4 @@
-VERSION      = 0.1.1
+VERSION      = 0.1.2
 BINARY      = terraform-provider-uptimerobot_v${VERSION}_x4
 GOARCH      = amd64
 CURRENT_DIR = $(shell pwd)
@@ -11,6 +11,7 @@ all: build publish clean
 
 build:
 	cd ${CURRENT_DIR}; \
+	go get -v ...
 	GOOS=${OS} GOARCH=${GOARCH} CGO_ENABLED=0 go build ${LDFLAGS} -o ${BINARY} . ; \
 
 clean:
