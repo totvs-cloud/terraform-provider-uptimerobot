@@ -78,6 +78,11 @@ func (client UptimeRobotApiClient) GetMonitor(id int) (m Monitor, err error) {
 		return
 	}
 
+	if len(monitors) < 1 {
+		err = errors.New("Monitor not found: " + string(id))
+		return
+	}
+
 	monitor := monitors[0].(map[string]interface{})
 
 	m.ID = id
@@ -135,6 +140,7 @@ func (client UptimeRobotApiClient) CreateMonitor(req MonitorCreateRequest) (m Mo
 	data.Add("friendly_name", req.FriendlyName)
 	data.Add("url", req.URL)
 	data.Add("type", fmt.Sprintf("%d", monitorType[req.Type]))
+	data.Add("interval", fmt.Sprintf("%d", req.Interval))
 	switch req.Type {
 	case "port":
 		data.Add("sub_type", fmt.Sprintf("%d", monitorSubType[req.SubType]))
@@ -197,6 +203,7 @@ func (client UptimeRobotApiClient) UpdateMonitor(req MonitorUpdateRequest) (m Mo
 	data.Add("friendly_name", req.FriendlyName)
 	data.Add("url", req.URL)
 	data.Add("type", fmt.Sprintf("%d", monitorType[req.Type]))
+	data.Add("interval", fmt.Sprintf("%d", req.Interval))
 	switch req.Type {
 	case "port":
 		data.Add("sub_type", fmt.Sprintf("%d", monitorSubType[req.SubType]))

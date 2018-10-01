@@ -11,8 +11,9 @@ all: build publish clean
 
 build:
 	cd ${CURRENT_DIR}; \
-	go get -v ...
 	GOOS=${OS} GOARCH=${GOARCH} CGO_ENABLED=0 go build ${LDFLAGS} -o ${BINARY} . ; \
+  mkdir -p ~/.terraform.d/plugins/${OS_ARCH} ; \
+  cp ${BINARY} ~/.terraform.d/plugins/${OS_ARCH}/${BINARY}
 
 clean:
 	rm -f terraform-provider-uptimerobot_*
